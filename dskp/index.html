@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+<title>DSKP Bahasa Melayu Tahun 5</title>
+<style>
+:root{--navy:#123d63;--blue:#286e9f;--paper:#fff;--ink:#17324a}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif}
+body{overflow:hidden;background:linear-gradient(135deg,#eef6fb,#dcebf5);color:var(--ink)}
+.bg{position:fixed;inset:0;pointer-events:none;overflow:hidden}.orb{position:absolute;border-radius:50%;background:rgba(35,107,154,.12);filter:blur(1px);animation:drift 9s ease-in-out infinite alternate}.o1{width:180px;height:180px;left:-55px;top:8%}.o2{width:260px;height:260px;right:-90px;bottom:-55px;animation-delay:-3s}.o3{width:90px;height:90px;right:12%;top:9%;animation-delay:-5s}@keyframes drift{to{transform:translate(25px,-18px) scale(1.08)}}
+.app{position:relative;height:100vh;display:flex;flex-direction:column;align-items:center;padding:14px 18px 12px}.head{text-align:center;margin-bottom:8px}.head h1{font-size:clamp(15px,2.4vw,23px);margin:0 0 3px;color:var(--navy);letter-spacing:.2px}.head p{margin:0;font-size:12px;opacity:.72}
+.stage{position:relative;flex:1;width:min(94vw,1000px);min-height:0;display:flex;align-items:center;justify-content:center;perspective:1600px;touch-action:pan-y;user-select:none}.book{height:100%;max-height:calc(100vh - 112px);width:100%;display:flex;align-items:center;justify-content:center;animation:float 4.8s ease-in-out infinite;filter:drop-shadow(0 16px 18px rgba(20,55,80,.18))}@keyframes float{50%{transform:translateY(-5px)}}
+.page{position:absolute;max-width:100%;max-height:100%;object-fit:contain;border-radius:5px;background:var(--paper);box-shadow:0 2px 5px rgba(0,0,0,.12);opacity:0;transform:translateX(60px) rotateY(-8deg) scale(.985);transition:opacity .38s ease,transform .48s cubic-bezier(.2,.75,.2,1);pointer-events:none}.page.active{opacity:1;transform:translateX(0) rotateY(0) scale(1);pointer-events:auto}.page.exit-left{opacity:0;transform:translateX(-70px) rotateY(9deg) scale(.98)}.page.exit-right{opacity:0;transform:translateX(70px) rotateY(-9deg) scale(.98)}
+.nav{width:min(94vw,760px);display:flex;align-items:center;justify-content:center;gap:13px;margin-top:8px}.btn{border:0;background:var(--navy);color:#fff;border-radius:999px;padding:9px 16px;font-weight:700;cursor:pointer;box-shadow:0 5px 12px rgba(18,61,99,.18);transition:.2s}.btn:hover{transform:translateY(-2px);background:var(--blue)}.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}.counter{min-width:82px;text-align:center;font-size:12px;font-weight:700;color:var(--navy)}
+.hint{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);font-size:11px;color:#31566f;background:rgba(255,255,255,.78);padding:5px 9px;border-radius:99px;backdrop-filter:blur(5px);animation:hint 2.4s ease-in-out infinite}@keyframes hint{50%{transform:translateX(-50%) translateY(-3px)}}
+@media(max-width:600px){.app{padding:10px 8px}.head p{display:none}.book{max-height:calc(100vh - 95px)}.btn{padding:8px 12px}.hint{font-size:10px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bg"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
+<main class="app">
+  <header class="head"><h1>DSKP Bahasa Melayu Tahun 5</h1><p>Aspek Tatabahasa - Fokus Sintaksis</p></header>
+  <section class="stage" id="stage" aria-label="Buku digital DSKP">
+    <div class="book" id="book">
+      <img class="page active" src="pages/page-1.png" alt="Halaman 1 DSKP" draggable="false">
+      <img class="page" src="pages/page-2.png" alt="Halaman 2 DSKP" draggable="false">
+      <img class="page" src="pages/page-3.png" alt="Halaman 3 DSKP" draggable="false">
+      <img class="page" src="pages/page-4.png" alt="Halaman 4 DSKP Pilihan" draggable="false">
+    </div>
+    <div class="hint">← Seret / swipe untuk selak →</div>
+  </section>
+  <nav class="nav">
+    <button class="btn" id="prev" aria-label="Halaman sebelumnya">← Sebelum</button>
+    <div class="counter" id="counter">1 / 4</div>
+    <button class="btn" id="next" aria-label="Halaman seterusnya">Seterusnya →</button>
+  </nav>
+</main>
+<script>
+const pages=[...document.querySelectorAll('.page')], counter=document.querySelector('#counter');
+const prev=document.querySelector('#prev'), next=document.querySelector('#next'), stage=document.querySelector('#stage');
+let i=0,startX=null,dragging=false;
+function show(n,dir=1){if(n<0||n>=pages.length||n===i)return;const old=pages[i];old.classList.remove('active');old.classList.add(dir>0?'exit-left':'exit-right');setTimeout(()=>old.classList.remove('exit-left','exit-right'),500);i=n;pages[i].classList.add('active');counter.textContent=`${i+1} / ${pages.length}`;prev.disabled=i===0;next.disabled=i===pages.length-1}
+prev.onclick=()=>show(i-1,-1);next.onclick=()=>show(i+1,1);prev.disabled=true;
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(i-1,-1);if(e.key==='ArrowRight')show(i+1,1)});
+stage.addEventListener('pointerdown',e=>{startX=e.clientX;dragging=true;stage.setPointerCapture(e.pointerId)});
+stage.addEventListener('pointerup',e=>{if(!dragging)return;const dx=e.clientX-startX;dragging=false;if(Math.abs(dx)>45) dx<0?show(i+1,1):show(i-1,-1)});
+stage.addEventListener('pointercancel',()=>dragging=false);
+</script>
+</body></html>
