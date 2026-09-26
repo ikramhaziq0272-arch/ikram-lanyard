@@ -30,13 +30,8 @@ body {
     Helvetica,
     sans-serif;
 
-  background:
-    radial-gradient(
-      circle at center,
-      #f5f0ff 0%,
-      #d9c6ff 45%,
-      #a47fdc 100%
-    );
+  background: transparent;
+  
 }
 
 
