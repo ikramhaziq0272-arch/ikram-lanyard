@@ -335,7 +335,7 @@ body {
   justify-content: center;
   align-items: center;
 
-  border-radius: 12px;
+  border-radius: 0;
 
   background: linear-gradient(
     135deg,
@@ -364,7 +364,7 @@ body {
   object-fit: cover;
   object-position: center;
   display: block;
-  border-radius: 8px;
+  border-radius: 0px;
 
 }
 
