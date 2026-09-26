@@ -1,0 +1,449 @@
+html {
+  height: 100%;
+  background: 50% 50% no-repeat
+    url('data:image/svg+xml,<svg viewBox="-20 -5 60 40" width="140" xmlns="http://www.w3.org/2000/svg" opacity="0.2"><path d="M1 8l11-7 11 7v8l-11 7-11-7zm0 0l11 8 11-8m0 8L12 8 1 16M12 1v7m0 8v7" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"/><text x="-12" y="32" font-size="5" font-family="monospace" fill="currentColor">Built on CodePen</text></svg>');
+}
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #f5f0ff 0%,
+      #d9c6ff 45%,
+      #a47fdc 100%
+    );
+}
+
+
+/* =========================
+   SCENE
+========================= */
+
+.scene {
+  position: relative;
+
+  width: min(430px, 100vw);
+  height: min(680px, 100vh);
+
+  overflow: hidden;
+
+  touch-action: none;
+}
+
+
+/* =========================
+   TITIK ATAS
+========================= */
+
+.top-point {
+  position: absolute;
+
+  top: 12px;
+
+  width: 18px;
+  height: 18px;
+
+  border-radius: 50%;
+
+  background: #32213f;
+
+  border: 3px solid #a46aff;
+
+  box-shadow:
+    0 4px 10px
+    rgba(0,0,0,.2);
+
+  z-index: 10;
+}
+
+.top-point.left {
+  left: 23%;
+}
+
+.top-point.right {
+  right: 23%;
+}
+
+
+/* =========================
+   STRAP
+========================= */
+
+.strap {
+  position: absolute;
+
+  top: 20px;
+  left: 0;
+
+  width: 14px;
+  height: 200px;
+
+  transform-origin:
+    center top;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #471177,
+      #aa62ff,
+      #5b1a94
+    );
+
+  box-shadow:
+    0 4px 9px
+    rgba(0,0,0,.18);
+
+  pointer-events: none;
+
+  z-index: 2;
+
+  will-change:
+    transform,
+    height;
+}
+
+
+/* =========================
+   HOLDER
+========================= */
+
+.holder {
+  position: absolute;
+
+  top: 225px;
+  left: 50%;
+
+  width: 260px;
+
+  transform:
+    translateX(-50%)
+    translate(0px, 0px)
+    rotate(0deg);
+
+  transform-origin:
+    center top;
+
+  cursor: grab;
+
+  touch-action: none;
+
+  user-select: none;
+  -webkit-user-select: none;
+
+  z-index: 20;
+
+  will-change: transform;
+}
+
+.holder:active {
+  cursor: grabbing;
+}
+
+
+/* =========================
+   CONNECTOR
+========================= */
+
+.connector {
+  position: relative;
+
+  width: 100%;
+  height: 52px;
+}
+
+
+/* RING */
+
+.ring {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  width: 30px;
+  height: 30px;
+
+  transform:
+    translateX(-50%);
+
+  border-radius: 50%;
+
+  border:
+    6px solid
+    #39313f;
+
+  background: transparent;
+
+  box-shadow:
+    0 5px 10px
+    rgba(0,0,0,.2);
+}
+
+
+/* CLIP */
+
+.clip {
+  position: absolute;
+
+  top: 23px;
+  left: 50%;
+
+  width: 43px;
+  height: 35px;
+
+  transform:
+    translateX(-50%);
+
+  border-radius: 8px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #55505c,
+      #252129
+    );
+
+  box-shadow:
+    0 5px 10px
+    rgba(0,0,0,.25);
+
+  z-index: 5;
+}
+
+.clip-line {
+  position: absolute;
+
+  top: 9px;
+  left: 50%;
+
+  width: 22px;
+  height: 5px;
+
+  transform:
+    translateX(-50%);
+
+  border-radius: 5px;
+
+  background: #8d8792;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+  position: relative;
+
+  width: 260px;
+  height: 330px;
+
+  padding:
+    54px
+    22px
+    20px;
+
+  text-align: center;
+
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #eee5ff
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,.9);
+
+  box-shadow:
+    0 28px 55px
+    rgba(44,17,77,.28),
+    inset
+    0 1px 0
+    rgba(255,255,255,.95);
+}
+
+
+/* =========================
+   HOLE
+========================= */
+
+.hole {
+  position: absolute;
+
+  top: 16px;
+  left: 50%;
+
+  width: 41px;
+  height: 15px;
+
+  transform:
+    translateX(-50%);
+
+  border-radius: 20px;
+
+  background: #51445e;
+
+  box-shadow:
+    inset
+    0 2px 4px
+    rgba(0,0,0,.35);
+}
+
+
+/* =========================
+   AVATAR
+========================= */
+
+.avatar {
+  width: 108px;
+  height: 108px;
+
+  margin:
+    0 auto
+    18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6722b7,
+      #bd79ff
+    );
+
+  border:
+    5px solid
+    #fff;
+
+  color: white;
+
+  font-size: 30px;
+  font-weight: 800;
+
+  box-shadow:
+    0 12px 25px
+    rgba(73,30,117,.25);
+}
+
+
+/* =========================
+   TEXT
+========================= */
+
+h2 {
+  margin:
+    0 0 8px;
+
+  color: #29163e;
+
+  font-size: 24px;
+  font-weight: 800;
+
+  letter-spacing: .6px;
+}
+
+.subtitle {
+  margin: 0;
+
+  color: #7334c1;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.divider {
+  width: 65%;
+  height: 2px;
+
+  margin:
+    18px auto;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #a879e3,
+      transparent
+    );
+}
+
+.subject {
+  margin: 0;
+
+  color: #62586f;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.hint {
+  margin-top: 20px;
+
+  color: #978ca4;
+
+  font-size: 11px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+  .holder {
+    width: 230px;
+  }
+
+  .card {
+    width: 230px;
+    height: 305px;
+  }
+
+  .avatar {
+    width: 95px;
+    height: 95px;
+
+    font-size: 27px;
+  }
+
+  h2 {
+    font-size: 21px;
+  }
+
+}
