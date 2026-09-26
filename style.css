@@ -326,29 +326,24 @@ body {
 ========================= */
 
 .avatar {
-  width: 108px;
-  height: 108px;
+  width: 100px;
+  height: 100px;
 
-  margin:
-    0 auto
-    18px;
+  margin: 0 auto 14px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  border-radius: 50%;
+  border-radius: 12px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #6722b7,
-      #bd79ff
-    );
+  background: linear-gradient(
+    135deg,
+    #6722b7,
+    #bd79ff
+  );
 
-  border:
-    5px solid
-    #fff;
+  border: 5px solid #fff;
 
   color: white;
 
@@ -358,8 +353,9 @@ body {
   box-shadow:
     0 12px 25px
     rgba(73,30,117,.25);
-  
+
   overflow: hidden;
+
 }
 
 .avatar img {
@@ -368,7 +364,8 @@ body {
   object-fit: cover;
   object-position: center;
   display: block;
-  border-radius: 50%;
+  border-radius: 8px;
+
 }
 
 /* =========================
