@@ -1,8 +1,7 @@
-html {
-  height: 100%;
-  background: 50% 50% no-repeat
-    url('data:image/svg+xml,<svg viewBox="-20 -5 60 40" width="140" xmlns="http://www.w3.org/2000/svg" opacity="0.2"><path d="M1 8l11-7 11 7v8l-11 7-11-7zm0 0l11 8 11-8m0 8L12 8 1 16M12 1v7m0 8v7" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"/><text x="-12" y="32" font-size="5" font-family="monospace" fill="currentColor">Built on CodePen</text></svg>');
-}
+/* =========================
+   RESET
+========================= */
+
 * {
   box-sizing: border-box;
 }
@@ -16,9 +15,8 @@ body {
   padding: 0;
 
   overflow: hidden;
-  
-  background: transparent;
 
+  background: transparent;
 }
 
 body {
@@ -34,7 +32,6 @@ body {
     sans-serif;
 
   background: transparent;
-  
 }
 
 
@@ -55,98 +52,24 @@ body {
 
 
 /* =========================
-   TITIK ATAS
-========================= */
-
-.top-point {
-  position: absolute;
-
-  top: 12px;
-
-  width: 18px;
-  height: 18px;
-
-  border-radius: 50%;
-
-  background: #32213f;
-
-  border: 3px solid #a46aff;
-
-  box-shadow:
-    0 4px 10px
-    rgba(0,0,0,.2);
-
-  z-index: 10;
-}
-
-.top-point.left {
-  left: 23%;
-}
-
-.top-point.right {
-  right: 23%;
-}
-
-
-/* =========================
-   STRAP
-========================= */
-
-.strap {
-  position: absolute;
-
-  top: 20px;
-  left: 0;
-
-  width: 14px;
-  height: 200px;
-
-  transform-origin:
-    center top;
-
-  border-radius: 10px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #471177,
-      #aa62ff,
-      #5b1a94
-    );
-
-  box-shadow:
-    0 4px 9px
-    rgba(0,0,0,.18);
-
-  pointer-events: none;
-
-  z-index: 2;
-
-  will-change:
-    transform,
-    height;
-}
-
-
-/* =========================
    HOLDER
+   LANYARD + KAD BERGERAK SEKALI
 ========================= */
 
 .holder {
   position: absolute;
 
-  top: 225px;
+  top: 15px;
   left: 50%;
 
-  width: 260px;
+  width: 280px;
 
   transform:
     translateX(-50%)
     translate(0px, 0px)
     rotate(0deg);
 
-  transform-origin:
-    center top;
+  transform-origin: center top;
 
   cursor: grab;
 
@@ -166,117 +89,51 @@ body {
 
 
 /* =========================
-   CONNECTOR
+   GAMBAR LANYARD SEBENAR
 ========================= */
 
-.connector {
-  position: relative;
+.lanyard-img {
+  display: block;
 
-  width: 100%;
-  height: 52px;
-}
+  width: 260px;
+  height: auto;
 
+  margin: 0 auto -15px;
 
-/* RING */
+  pointer-events: none;
 
-.ring {
-  position: absolute;
-
-  top: 0;
-  left: 50%;
-
-  width: 30px;
-  height: 30px;
-
-  transform:
-    translateX(-50%);
-
-  border-radius: 50%;
-
-  border:
-    6px solid
-    #39313f;
-
-  background: transparent;
-
-  box-shadow:
-    0 5px 10px
-    rgba(0,0,0,.2);
-}
-
-
-/* CLIP */
-
-.clip {
-  position: absolute;
-
-  top: 23px;
-  left: 50%;
-
-  width: 43px;
-  height: 35px;
-
-  transform:
-    translateX(-50%);
-
-  border-radius: 8px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #55505c,
-      #252129
-    );
-
-  box-shadow:
-    0 5px 10px
-    rgba(0,0,0,.25);
-
-  z-index: 5;
-}
-
-.clip-line {
-  position: absolute;
-
-  top: 9px;
-  left: 50%;
-
-  width: 22px;
-  height: 5px;
-
-  transform:
-    translateX(-50%);
-
-  border-radius: 5px;
-
-  background: #8d8792;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
 }
 
 
 /* =========================
-   CARD
+   KAD
 ========================= */
 
 .card {
   position: relative;
 
   width: 260px;
-  height: 330px;
+  min-height: 285px;
+
+  margin: 0 auto;
 
   padding:
-    54px
+    30px
     22px
-    20px;
+    18px;
 
   text-align: center;
 
-  border-radius: 28px;
+  border-radius: 24px;
 
   background:
     linear-gradient(
       145deg,
-      #ffffff,
-      #eee5ff
+      rgba(255,255,255,.96),
+      rgba(238,229,255,.96)
     );
 
   border:
@@ -284,118 +141,80 @@ body {
     rgba(255,255,255,.9);
 
   box-shadow:
-    0 28px 55px
-    rgba(44,17,77,.28),
-    inset
-    0 1px 0
-    rgba(255,255,255,.95);
+    0 25px 50px
+    rgba(44,17,77,.22);
 }
 
 
 /* =========================
-   HOLE
-========================= */
-
-.hole {
-  position: absolute;
-
-  top: 16px;
-  left: 50%;
-
-  width: 41px;
-  height: 15px;
-
-  transform:
-    translateX(-50%);
-
-  border-radius: 20px;
-
-  background: #51445e;
-
-  box-shadow:
-    inset
-    0 2px 4px
-    rgba(0,0,0,.35);
-}
-
-
-/* =========================
-   AVATAR
+   GAMBAR PROFIL PETAK
 ========================= */
 
 .avatar {
   width: 100px;
-  height: 100px;
+  height: 115px;
 
-  margin: 0 auto 14px;
+  margin:
+    0 auto
+    12px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  border-radius: 0;
+  border-radius: 8px;
 
-  background: linear-gradient(
-    135deg,
-    #6722b7,
-    #bd79ff
-  );
-
-  border: 5px solid #fff;
-
-  color: white;
-
-  font-size: 30px;
-  font-weight: 800;
+  border:
+    4px solid
+    #ffffff;
 
   box-shadow:
-    0 12px 25px
-    rgba(73,30,117,.25);
+    0 10px 22px
+    rgba(73,30,117,.20);
 
   overflow: hidden;
-
 }
 
 .avatar img {
   width: 100%;
   height: 100%;
+
   object-fit: cover;
   object-position: center;
-  display: block;
-  border-radius: 0px;
 
+  display: block;
+
+  border-radius: 4px;
 }
 
+
 /* =========================
-   TEXT
+   NAMA
 ========================= */
 
 h2 {
   margin:
-    0 0 4px;
+    0 0 6px;
 
   color: #29163e;
 
-  font-size: 24px;
+  font-size: 23px;
   font-weight: 800;
 
-  letter-spacing: .6px;
+  letter-spacing: .5px;
 }
 
-.subtitle {
-  margin: 0;
 
-  color: #7334c1;
-
-  font-size: 15px;
-  font-weight: 700;
-}
+/* =========================
+   GARIS
+========================= */
 
 .divider {
   width: 65%;
   height: 2px;
 
-  margin: 10px auto 10px;
+  margin:
+    10px auto;
 
   background:
     linear-gradient(
@@ -406,6 +225,11 @@ h2 {
     );
 }
 
+
+/* =========================
+   SUBJEK
+========================= */
+
 .subject {
   margin: 0;
 
@@ -415,8 +239,13 @@ h2 {
   font-weight: 600;
 }
 
+
+/* =========================
+   TEKAN / TAHAN / TARIK
+========================= */
+
 .hint {
-  margin-top: 8px;
+  margin-top: 7px;
 
   color: #978ca4;
 
@@ -431,23 +260,39 @@ h2 {
 @media (max-width: 500px) {
 
   .holder {
+    width: 245px;
+    top: 10px;
+  }
+
+  .lanyard-img {
     width: 230px;
   }
 
   .card {
     width: 230px;
-    height: 305px;
+    min-height: 270px;
+
+    padding:
+      26px
+      18px
+      16px;
   }
 
   .avatar {
-    width: 95px;
-    height: 95px;
-
-    font-size: 27px;
+    width: 90px;
+    height: 105px;
   }
 
   h2 {
-    font-size: 21px;
+    font-size: 20px;
+  }
+
+  .subject {
+    font-size: 13px;
+  }
+
+  .hint {
+    font-size: 10px;
   }
 
 }
