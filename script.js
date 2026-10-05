@@ -1,15 +1,5 @@
-const scene =
-  document.getElementById("scene");
-
 const holder =
   document.getElementById("holder");
-
-const strapLeft =
-  document.getElementById("strapLeft");
-
-const strapRight =
-  document.getElementById("strapRight");
-
 
 let dragging = false;
 
@@ -19,16 +9,14 @@ let currentY = 0;
 let startPointerX = 0;
 let startPointerY = 0;
 
-let startCardX = 0;
-let startCardY = 0;
+let startHolderX = 0;
+let startHolderY = 0;
 
 let lastPointerX = 0;
 let lastPointerY = 0;
 
 let velocityX = 0;
 let velocityY = 0;
-
-let rotation = 0;
 
 let animationFrame = null;
 
@@ -39,8 +27,8 @@ let animationFrame = null;
 
 const maxX = 150;
 
-const minY = -60;
-const maxY = 100;
+const minY = -40;
+const maxY = 80;
 
 const spring = 0.035;
 
@@ -48,7 +36,7 @@ const damping = 0.90;
 
 
 /* =========================
-   POINTER DOWN
+   START DRAG
 ========================= */
 
 holder.addEventListener(
@@ -69,10 +57,10 @@ holder.addEventListener(
     startPointerY =
       event.clientY;
 
-    startCardX =
+    startHolderX =
       currentX;
 
-    startCardY =
+    startHolderY =
       currentY;
 
     lastPointerX =
@@ -95,7 +83,7 @@ holder.addEventListener(
 
 
 /* =========================
-   POINTER MOVE
+   DRAG
 ========================= */
 
 holder.addEventListener(
@@ -108,11 +96,9 @@ holder.addEventListener(
 
     event.preventDefault();
 
-
     const deltaX =
       event.clientX -
       startPointerX;
-
 
     const deltaY =
       event.clientY -
@@ -120,14 +106,15 @@ holder.addEventListener(
 
 
     currentX =
-      startCardX +
+      startHolderX +
       deltaX;
 
-
     currentY =
-      startCardY +
+      startHolderY +
       deltaY;
 
+
+    /* Limit kiri kanan */
 
     currentX =
       Math.max(
@@ -139,6 +126,8 @@ holder.addEventListener(
       );
 
 
+    /* Limit atas bawah */
+
     currentY =
       Math.max(
         minY,
@@ -149,19 +138,18 @@ holder.addEventListener(
       );
 
 
+    /* Simpan kelajuan */
+
     velocityX =
       event.clientX -
       lastPointerX;
-
 
     velocityY =
       event.clientY -
       lastPointerY;
 
-
     lastPointerX =
       event.clientX;
-
 
     lastPointerY =
       event.clientY;
@@ -173,7 +161,7 @@ holder.addEventListener(
 
 
 /* =========================
-   POINTER UP
+   LEPASKAN
 ========================= */
 
 holder.addEventListener(
@@ -184,9 +172,10 @@ holder.addEventListener(
       return;
     }
 
-
     dragging = false;
 
+    holder.style.cursor =
+      "grab";
 
     try {
 
@@ -196,12 +185,8 @@ holder.addEventListener(
 
     } catch(error) {
 
+      // ignore
     }
-
-
-    holder.style.cursor =
-      "grab";
-
 
     startSwing();
   }
@@ -227,14 +212,13 @@ holder.addEventListener(
 
 
 /* =========================
-   UPDATE CARD
+   UPDATE VISUAL
 ========================= */
 
 function updateVisual() {
 
-  rotation =
-    currentX * 0.055;
-
+  const rotation =
+    currentX * 0.05;
 
   holder.style.transform = `
     translateX(-50%)
@@ -244,134 +228,11 @@ function updateVisual() {
     )
     rotate(${rotation}deg)
   `;
-
-
-  updateStraps();
 }
 
 
 /* =========================
-   UPDATE STRAPS
-========================= */
-
-function updateStraps() {
-
-  const sceneWidth =
-    scene.clientWidth;
-
-
-  /*
-    Kedudukan titik atas
-  */
-
-  const leftAnchorX =
-    sceneWidth * 0.23 + 9;
-
-
-  const rightAnchorX =
-    sceneWidth * 0.77 - 9;
-
-
-  const anchorY =
-    21;
-
-
-  /*
-    Kedudukan tengah connector
-  */
-
-  const targetX =
-    sceneWidth / 2 +
-    currentX;
-
-
-  const targetY =
-    225 +
-    currentY;
-
-
-  positionStrap(
-    strapLeft,
-    leftAnchorX,
-    anchorY,
-    targetX,
-    targetY
-  );
-
-
-  positionStrap(
-    strapRight,
-    rightAnchorX,
-    anchorY,
-    targetX,
-    targetY
-  );
-}
-
-
-/* =========================
-   POSITION STRAP
-========================= */
-
-function positionStrap(
-  strap,
-  startX,
-  startY,
-  endX,
-  endY
-) {
-
-  const dx =
-    endX -
-    startX;
-
-
-  const dy =
-    endY -
-    startY;
-
-
-  const length =
-    Math.sqrt(
-      dx * dx +
-      dy * dy
-    );
-
-
-  /*
-    +90 sebab div asal tegak
-  */
-
-  const angle =
-    Math.atan2(
-      dy,
-      dx
-    ) *
-    180 /
-    Math.PI -
-    90;
-
-
-  strap.style.left =
-    `${startX - 7}px`;
-
-
-  strap.style.top =
-    `${startY}px`;
-
-
-  strap.style.height =
-    `${length}px`;
-
-
-  strap.style.transform = `
-    rotate(${angle}deg)
-  `;
-}
-
-
-/* =========================
-   PHYSICS
+   SWING BALIK
 ========================= */
 
 function startSwing() {
@@ -380,30 +241,32 @@ function startSwing() {
     animationFrame
   );
 
-
   function animate() {
+
+    /* spring force */
 
     velocityX +=
       -currentX *
       spring;
-
 
     velocityY +=
       -currentY *
       spring;
 
 
+    /* damping */
+
     velocityX *=
       damping;
-
 
     velocityY *=
       damping;
 
 
+    /* update posisi */
+
     currentX +=
       velocityX;
-
 
     currentY +=
       velocityY;
@@ -413,22 +276,10 @@ function startSwing() {
 
 
     const stopped =
-
-      Math.abs(
-        currentX
-      ) < 0.2 &&
-
-      Math.abs(
-        currentY
-      ) < 0.2 &&
-
-      Math.abs(
-        velocityX
-      ) < 0.2 &&
-
-      Math.abs(
-        velocityY
-      ) < 0.2;
+      Math.abs(currentX) < 0.2 &&
+      Math.abs(currentY) < 0.2 &&
+      Math.abs(velocityX) < 0.2 &&
+      Math.abs(velocityY) < 0.2;
 
 
     if (stopped) {
@@ -457,15 +308,7 @@ function startSwing() {
 
 
 /* =========================
-   RESIZE
+   INITIAL
 ========================= */
-
-window.addEventListener(
-  "resize",
-  updateVisual
-);
-
-
-/* INITIAL */
 
 updateVisual();
