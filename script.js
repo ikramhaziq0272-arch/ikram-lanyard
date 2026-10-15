@@ -45,13 +45,19 @@ const spring = 0.033;
 const damping = 0.91;
 
 
-/* IDLE MOVEMENT */
+/* =========================
+   IDLE SETTINGS
+========================= */
 
-const idleAmplitudeX = 6;
+/* lebih jelas daripada versi sebelum ni */
 
-const idleAmplitudeY = 2;
+const idleAmplitudeX = 16;
 
-const idleSpeed = 1.15;
+const idleAmplitudeY = 4;
+
+const idleRotation = 2.2;
+
+const idleSpeed = 1.05;
 
 
 /* =========================
@@ -178,7 +184,8 @@ holder.addEventListener(
 
     updateVisual(
       currentX,
-      currentY
+      currentY,
+      currentX * 0.05
     );
   }
 );
@@ -234,12 +241,9 @@ holder.addEventListener(
 
 function updateVisual(
   renderX,
-  renderY
+  renderY,
+  rotation
 ) {
-
-  const rotation =
-    renderX * 0.05;
-
 
   holder.style.transform = `
     translateX(-50%)
@@ -259,7 +263,7 @@ function updateVisual(
 
 
 /* =========================
-   TALI
+   UPDATE STRAPS
 ========================= */
 
 function updateStraps(
@@ -313,7 +317,7 @@ function updateStraps(
 
 
 /* =========================
-   POSISI STRAP
+   POSITION STRAP
 ========================= */
 
 function positionStrap(
@@ -416,7 +420,8 @@ function startSwing() {
 
     updateVisual(
       currentX,
-      currentY
+      currentY,
+      currentX * 0.05
     );
 
 
@@ -474,6 +479,8 @@ function idleLoop(time) {
       time / 1000;
 
 
+    /* kiri kanan */
+
     const idleX =
       Math.sin(
         t * idleSpeed
@@ -481,18 +488,30 @@ function idleLoop(time) {
       idleAmplitudeX;
 
 
+    /* naik turun halus */
+
     const idleY =
-      Math.cos(
+      Math.sin(
         t *
         idleSpeed *
-        1.8
+        1.7
       ) *
       idleAmplitudeY;
 
 
+    /* senget kiri kanan */
+
+    const rotation =
+      Math.sin(
+        t * idleSpeed
+      ) *
+      idleRotation;
+
+
     updateVisual(
       idleX,
-      idleY
+      idleY,
+      rotation
     );
   }
 
@@ -513,7 +532,8 @@ window.addEventListener(
 
     updateVisual(
       currentX,
-      currentY
+      currentY,
+      currentX * 0.05
     );
   }
 );
@@ -524,6 +544,7 @@ window.addEventListener(
 ========================= */
 
 updateVisual(
+  0,
   0,
   0
 );
