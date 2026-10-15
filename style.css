@@ -1,3 +1,7 @@
+/* =========================
+   RESET
+========================= */
+
 * {
   box-sizing: border-box;
 }
@@ -38,8 +42,8 @@ body {
 .scene {
   position: relative;
 
-  width: min(440px, 100vw);
-  height: min(680px, 100vh);
+  width: min(460px, 100vw);
+  height: min(700px, 100vh);
 
   overflow: hidden;
 
@@ -54,39 +58,39 @@ body {
 .top-point {
   position: absolute;
 
-  top: 14px;
+  top: 13px;
 
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 
   border-radius: 50%;
 
   background:
     radial-gradient(
       circle at 35% 35%,
-      #e8d4ff,
-      #9f64e9 45%,
-      #49206e 100%
+      #3a8bd8,
+      #0b3972 55%,
+      #071a31 100%
     );
 
   box-shadow:
     0 5px 12px
-    rgba(45, 15, 70, .25);
+    rgba(0,0,0,.22);
 
   z-index: 10;
 }
 
 .top-point.left {
-  left: 22%;
+  left: 21%;
 }
 
 .top-point.right {
-  right: 22%;
+  right: 21%;
 }
 
 
 /* =========================
-   TALI
+   TALI LANYARD IPG
 ========================= */
 
 .strap {
@@ -95,27 +99,42 @@ body {
   top: 22px;
   left: 0;
 
-  width: 16px;
-  height: 210px;
+  width: 38px;
+  height: 215px;
 
-  transform-origin: center top;
+  transform-origin:
+    center top;
 
-  border-radius: 8px;
+  border-radius: 4px;
 
-  background:
-    linear-gradient(
-      90deg,
-      #35105a 0%,
-      #6730a3 18%,
-      #ae72f4 45%,
-      #6a32a8 72%,
-      #35105a 100%
-    );
+  /*
+    GAMBAR YANG KAU UPLOAD
+  */
+
+  background-image:
+    url("./IKRAM LANYARD.png");
+
+  background-size:
+    100% auto;
+
+  background-repeat:
+    repeat-y;
+
+  background-position:
+    center top;
+
+  background-color:
+    #061427;
 
   box-shadow:
-    inset 2px 0 3px rgba(255,255,255,.22),
-    inset -2px 0 4px rgba(0,0,0,.16),
-    0 5px 10px rgba(45,15,70,.16);
+    inset 2px 0 3px
+    rgba(255,255,255,.12),
+
+    inset -2px 0 4px
+    rgba(0,0,0,.25),
+
+    0 5px 12px
+    rgba(0,0,0,.18);
 
   pointer-events: none;
 
@@ -124,26 +143,6 @@ body {
   will-change:
     transform,
     height;
-}
-
-.strap::after {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  border-radius: inherit;
-
-  background:
-    repeating-linear-gradient(
-      180deg,
-      rgba(255,255,255,.07) 0px,
-      rgba(255,255,255,.07) 2px,
-      transparent 2px,
-      transparent 5px
-    );
-
-  pointer-events: none;
 }
 
 
@@ -195,14 +194,17 @@ body {
   height: 58px;
 }
 
+
+/* RING */
+
 .ring {
   position: absolute;
 
   top: 0;
   left: 50%;
 
-  width: 33px;
-  height: 33px;
+  width: 32px;
+  height: 32px;
 
   transform:
     translateX(-50%);
@@ -211,37 +213,42 @@ body {
 
   border:
     6px solid
-    #4a4250;
+    #35383e;
 
-  background: transparent;
+  background:
+    transparent;
 
   box-shadow:
-    0 6px 12px
+    0 5px 10px
     rgba(0,0,0,.22),
+
     inset 0 0 4px
-    rgba(255,255,255,.35);
+    rgba(255,255,255,.28);
 }
+
+
+/* CLIP */
 
 .clip {
   position: absolute;
 
-  top: 27px;
+  top: 26px;
   left: 50%;
 
-  width: 45px;
+  width: 44px;
   height: 34px;
 
   transform:
     translateX(-50%);
 
   border-radius:
-    9px 9px 12px 12px;
+    8px 8px 11px 11px;
 
   background:
     linear-gradient(
       145deg,
-      #7d7584,
-      #2f2b33
+      #6d737b,
+      #25292f
     );
 
   box-shadow:
@@ -266,12 +273,12 @@ body {
   border-radius: 6px;
 
   background:
-    rgba(255,255,255,.38);
+    rgba(255,255,255,.4);
 }
 
 
 /* =========================
-   CARD
+   KAD
 ========================= */
 
 .card {
@@ -296,36 +303,40 @@ body {
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.96),
-      rgba(242,235,252,.96)
+      rgba(255,255,255,.97),
+      rgba(235,242,250,.96)
     );
 
   border:
     1px solid
-    rgba(255,255,255,.9);
+    rgba(255,255,255,.92);
 
   box-shadow:
     0 30px 55px
-    rgba(49,20,75,.24),
+    rgba(15,35,60,.22),
+
     inset 0 1px 0
-    rgba(255,255,255,.9);
+    rgba(255,255,255,.92);
 }
+
+
+/* GLOW */
 
 .card-glow {
   position: absolute;
 
-  width: 160px;
-  height: 160px;
+  width: 170px;
+  height: 170px;
 
-  top: -70px;
-  right: -50px;
+  top: -75px;
+  right: -55px;
 
   border-radius: 50%;
 
   background:
     radial-gradient(
       circle,
-      rgba(171,112,238,.22),
+      rgba(41,127,203,.20),
       transparent 70%
     );
 
@@ -347,17 +358,17 @@ body {
     0 auto
     13px;
 
-  border-radius: 10px;
+  border-radius: 9px;
 
   overflow: hidden;
 
   border:
     4px solid
-    rgba(255,255,255,.95);
+    rgba(255,255,255,.96);
 
   box-shadow:
     0 12px 24px
-    rgba(61,25,95,.18);
+    rgba(18,50,80,.18);
 }
 
 .avatar img {
@@ -372,14 +383,15 @@ body {
 
 
 /* =========================
-   TEXT
+   NAMA
 ========================= */
 
 h2 {
   margin:
     0 0 6px;
 
-  color: #2c193e;
+  color:
+    #162b43;
 
   font-size: 23px;
   font-weight: 800;
@@ -387,36 +399,52 @@ h2 {
   letter-spacing: .6px;
 }
 
+
+/* =========================
+   GARIS
+========================= */
+
 .divider {
   width: 62%;
   height: 2px;
 
   margin:
-    9px auto
-    9px;
+    9px auto;
 
   background:
     linear-gradient(
       90deg,
       transparent,
-      #a46bdd,
+      #287bc1,
       transparent
     );
 }
 
+
+/* =========================
+   SUBJECT
+========================= */
+
 .subject {
   margin: 0;
 
-  color: #64596f;
+  color:
+    #526275;
 
   font-size: 14px;
   font-weight: 600;
 }
 
+
+/* =========================
+   HINT
+========================= */
+
 .hint {
   margin-top: 6px;
 
-  color: #94899e;
+  color:
+    #8793a0;
 
   font-size: 10.5px;
 }
@@ -433,6 +461,10 @@ h2 {
     height: 100vh;
   }
 
+  .strap {
+    width: 32px;
+  }
+
   .holder {
     width: 235px;
     top: 215px;
@@ -440,6 +472,7 @@ h2 {
 
   .card {
     width: 235px;
+
     min-height: 275px;
 
     padding:
