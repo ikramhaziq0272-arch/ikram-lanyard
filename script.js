@@ -61,11 +61,13 @@ holder.addEventListener(
       animationFrame
     );
 
+
     startPointerX =
       event.clientX;
 
     startPointerY =
       event.clientY;
+
 
     startHolderX =
       currentX;
@@ -73,18 +75,22 @@ holder.addEventListener(
     startHolderY =
       currentY;
 
+
     lastPointerX =
       event.clientX;
 
     lastPointerY =
       event.clientY;
 
+
     velocityX = 0;
     velocityY = 0;
+
 
     holder.setPointerCapture(
       event.pointerId
     );
+
 
     holder.style.cursor =
       "grabbing";
@@ -103,6 +109,7 @@ holder.addEventListener(
     if (!dragging) {
       return;
     }
+
 
     event.preventDefault();
 
@@ -182,10 +189,13 @@ holder.addEventListener(
       return;
     }
 
+
     dragging = false;
+
 
     holder.style.cursor =
       "grab";
+
 
     try {
 
@@ -194,6 +204,7 @@ holder.addEventListener(
       );
 
     } catch(error) {}
+
 
     startSwing();
   }
@@ -215,13 +226,13 @@ holder.addEventListener(
 
 
 /* =========================
-   UPDATE VISUAL
+   UPDATE
 ========================= */
 
 function updateVisual() {
 
   const rotation =
-    currentX * 0.055;
+    currentX * 0.05;
 
 
   holder.style.transform = `
@@ -239,7 +250,7 @@ function updateVisual() {
 
 
 /* =========================
-   UPDATE STRAPS
+   TALI
 ========================= */
 
 function updateStraps() {
@@ -248,17 +259,29 @@ function updateStraps() {
     scene.clientWidth;
 
 
-  const leftAnchorX =
-    sceneWidth * 0.22 + 9;
+  /*
+    Titik atas kiri
+  */
 
+  const leftAnchorX =
+    sceneWidth * 0.21 + 10;
+
+
+  /*
+    Titik atas kanan
+  */
 
   const rightAnchorX =
-    sceneWidth * 0.78 - 9;
+    sceneWidth * 0.79 - 10;
 
 
   const anchorY =
     23;
 
+
+  /*
+    Pertemuan V
+  */
 
   const targetX =
     sceneWidth / 2 +
@@ -290,7 +313,7 @@ function updateStraps() {
 
 
 /* =========================
-   POSITION STRAP
+   POSISI SATU TALI
 ========================= */
 
 function positionStrap(
@@ -328,8 +351,13 @@ function positionStrap(
     90;
 
 
+  /*
+    19 = separuh lebar
+    tali 38px
+  */
+
   strap.style.left =
-    `${startX - 8}px`;
+    `${startX - 19}px`;
 
 
   strap.style.top =
@@ -347,7 +375,7 @@ function positionStrap(
 
 
 /* =========================
-   SWING
+   SWING BALIK
 ========================= */
 
 function startSwing() {
@@ -389,9 +417,13 @@ function startSwing() {
 
 
     const stopped =
+
       Math.abs(currentX) < 0.2 &&
+
       Math.abs(currentY) < 0.2 &&
+
       Math.abs(velocityX) < 0.2 &&
+
       Math.abs(velocityY) < 0.2;
 
 
@@ -431,7 +463,7 @@ window.addEventListener(
 
 
 /* =========================
-   INITIAL
+   START
 ========================= */
 
 updateVisual();
