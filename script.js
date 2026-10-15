@@ -1,5 +1,15 @@
+const scene =
+  document.getElementById("scene");
+
 const holder =
   document.getElementById("holder");
+
+const strapLeft =
+  document.getElementById("strapLeft");
+
+const strapRight =
+  document.getElementById("strapRight");
+
 
 let dragging = false;
 
@@ -27,16 +37,16 @@ let animationFrame = null;
 
 const maxX = 150;
 
-const minY = -40;
-const maxY = 80;
+const minY = -60;
+const maxY = 95;
 
-const spring = 0.035;
+const spring = 0.033;
 
-const damping = 0.90;
+const damping = 0.91;
 
 
 /* =========================
-   START DRAG
+   DRAG START
 ========================= */
 
 holder.addEventListener(
@@ -83,7 +93,7 @@ holder.addEventListener(
 
 
 /* =========================
-   DRAG
+   DRAG MOVE
 ========================= */
 
 holder.addEventListener(
@@ -96,9 +106,11 @@ holder.addEventListener(
 
     event.preventDefault();
 
+
     const deltaX =
       event.clientX -
       startPointerX;
+
 
     const deltaY =
       event.clientY -
@@ -109,12 +121,11 @@ holder.addEventListener(
       startHolderX +
       deltaX;
 
+
     currentY =
       startHolderY +
       deltaY;
 
-
-    /* Limit kiri kanan */
 
     currentX =
       Math.max(
@@ -126,8 +137,6 @@ holder.addEventListener(
       );
 
 
-    /* Limit atas bawah */
-
     currentY =
       Math.max(
         minY,
@@ -138,18 +147,19 @@ holder.addEventListener(
       );
 
 
-    /* Simpan kelajuan */
-
     velocityX =
       event.clientX -
       lastPointerX;
+
 
     velocityY =
       event.clientY -
       lastPointerY;
 
+
     lastPointerX =
       event.clientX;
+
 
     lastPointerY =
       event.clientY;
@@ -161,7 +171,7 @@ holder.addEventListener(
 
 
 /* =========================
-   LEPASKAN
+   DRAG END
 ========================= */
 
 holder.addEventListener(
@@ -183,19 +193,12 @@ holder.addEventListener(
         event.pointerId
       );
 
-    } catch(error) {
-
-      // ignore
-    }
+    } catch(error) {}
 
     startSwing();
   }
 );
 
-
-/* =========================
-   POINTER CANCEL
-========================= */
 
 holder.addEventListener(
   "pointercancel",
@@ -218,7 +221,8 @@ holder.addEventListener(
 function updateVisual() {
 
   const rotation =
-    currentX * 0.05;
+    currentX * 0.055;
+
 
   holder.style.transform = `
     translateX(-50%)
@@ -228,11 +232,122 @@ function updateVisual() {
     )
     rotate(${rotation}deg)
   `;
+
+
+  updateStraps();
 }
 
 
 /* =========================
-   SWING BALIK
+   UPDATE STRAPS
+========================= */
+
+function updateStraps() {
+
+  const sceneWidth =
+    scene.clientWidth;
+
+
+  const leftAnchorX =
+    sceneWidth * 0.22 + 9;
+
+
+  const rightAnchorX =
+    sceneWidth * 0.78 - 9;
+
+
+  const anchorY =
+    23;
+
+
+  const targetX =
+    sceneWidth / 2 +
+    currentX;
+
+
+  const targetY =
+    225 +
+    currentY;
+
+
+  positionStrap(
+    strapLeft,
+    leftAnchorX,
+    anchorY,
+    targetX,
+    targetY
+  );
+
+
+  positionStrap(
+    strapRight,
+    rightAnchorX,
+    anchorY,
+    targetX,
+    targetY
+  );
+}
+
+
+/* =========================
+   POSITION STRAP
+========================= */
+
+function positionStrap(
+  strap,
+  startX,
+  startY,
+  endX,
+  endY
+) {
+
+  const dx =
+    endX -
+    startX;
+
+
+  const dy =
+    endY -
+    startY;
+
+
+  const length =
+    Math.sqrt(
+      dx * dx +
+      dy * dy
+    );
+
+
+  const angle =
+    Math.atan2(
+      dy,
+      dx
+    ) *
+    180 /
+    Math.PI -
+    90;
+
+
+  strap.style.left =
+    `${startX - 8}px`;
+
+
+  strap.style.top =
+    `${startY}px`;
+
+
+  strap.style.height =
+    `${length}px`;
+
+
+  strap.style.transform = `
+    rotate(${angle}deg)
+  `;
+}
+
+
+/* =========================
+   SWING
 ========================= */
 
 function startSwing() {
@@ -241,32 +356,30 @@ function startSwing() {
     animationFrame
   );
 
-  function animate() {
 
-    /* spring force */
+  function animate() {
 
     velocityX +=
       -currentX *
       spring;
+
 
     velocityY +=
       -currentY *
       spring;
 
 
-    /* damping */
-
     velocityX *=
       damping;
+
 
     velocityY *=
       damping;
 
 
-    /* update posisi */
-
     currentX +=
       velocityX;
+
 
     currentY +=
       velocityY;
@@ -305,6 +418,16 @@ function startSwing() {
 
   animate();
 }
+
+
+/* =========================
+   RESIZE
+========================= */
+
+window.addEventListener(
+  "resize",
+  updateVisual
+);
 
 
 /* =========================
