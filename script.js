@@ -28,7 +28,7 @@ let lastPointerY = 0;
 let velocityX = 0;
 let velocityY = 0;
 
-let animationFrame = null;
+let swingFrame = null;
 
 
 /* =========================
@@ -45,6 +45,15 @@ const spring = 0.033;
 const damping = 0.91;
 
 
+/* IDLE MOVEMENT */
+
+const idleAmplitudeX = 6;
+
+const idleAmplitudeY = 2;
+
+const idleSpeed = 1.15;
+
+
 /* =========================
    DRAG START
 ========================= */
@@ -58,8 +67,10 @@ holder.addEventListener(
     dragging = true;
 
     cancelAnimationFrame(
-      animationFrame
+      swingFrame
     );
+
+    swingFrame = null;
 
     startPointerX =
       event.clientX;
@@ -165,7 +176,10 @@ holder.addEventListener(
       event.clientY;
 
 
-    updateVisual();
+    updateVisual(
+      currentX,
+      currentY
+    );
   }
 );
 
@@ -182,13 +196,10 @@ holder.addEventListener(
       return;
     }
 
-
     dragging = false;
-
 
     holder.style.cursor =
       "grab";
-
 
     try {
 
@@ -197,7 +208,6 @@ holder.addEventListener(
       );
 
     } catch(error) {}
-
 
     startSwing();
   }
@@ -219,26 +229,32 @@ holder.addEventListener(
 
 
 /* =========================
-   UPDATE
+   UPDATE VISUAL
 ========================= */
 
-function updateVisual() {
+function updateVisual(
+  renderX,
+  renderY
+) {
 
   const rotation =
-    currentX * 0.05;
+    renderX * 0.05;
 
 
   holder.style.transform = `
     translateX(-50%)
     translate(
-      ${currentX}px,
-      ${currentY}px
+      ${renderX}px,
+      ${renderY}px
     )
     rotate(${rotation}deg)
   `;
 
 
-  updateStraps();
+  updateStraps(
+    renderX,
+    renderY
+  );
 }
 
 
@@ -246,7 +262,10 @@ function updateVisual() {
    TALI
 ========================= */
 
-function updateStraps() {
+function updateStraps(
+  renderX,
+  renderY
+) {
 
   const sceneWidth =
     scene.clientWidth;
@@ -266,12 +285,12 @@ function updateStraps() {
 
   const targetX =
     sceneWidth / 2 +
-    currentX;
+    renderX;
 
 
   const targetY =
     230 +
-    currentY;
+    renderY;
 
 
   positionStrap(
@@ -332,11 +351,6 @@ function positionStrap(
     90;
 
 
-  /*
-    Lebar tali desktop = 56px
-    Separuh = 28px
-  */
-
   const strapHalfWidth =
     window.innerWidth <= 500
       ? 23
@@ -368,7 +382,7 @@ function positionStrap(
 function startSwing() {
 
   cancelAnimationFrame(
-    animationFrame
+    swingFrame
   );
 
 
@@ -400,7 +414,10 @@ function startSwing() {
       velocityY;
 
 
-    updateVisual();
+    updateVisual(
+      currentX,
+      currentY
+    );
 
 
     const stopped =
@@ -422,20 +439,67 @@ function startSwing() {
       velocityX = 0;
       velocityY = 0;
 
-      updateVisual();
+      swingFrame = null;
 
       return;
     }
 
 
-    animationFrame =
+    swingFrame =
       requestAnimationFrame(
         animate
       );
   }
 
 
-  animate();
+  swingFrame =
+    requestAnimationFrame(
+      animate
+    );
+}
+
+
+/* =========================
+   IDLE ANIMATION
+========================= */
+
+function idleLoop(time) {
+
+  if (
+    !dragging &&
+    swingFrame === null
+  ) {
+
+    const t =
+      time / 1000;
+
+
+    const idleX =
+      Math.sin(
+        t * idleSpeed
+      ) *
+      idleAmplitudeX;
+
+
+    const idleY =
+      Math.cos(
+        t *
+        idleSpeed *
+        1.8
+      ) *
+      idleAmplitudeY;
+
+
+    updateVisual(
+      idleX,
+      idleY
+    );
+  }
+
+
+  requestAnimationFrame(
+    idleLoop
+  );
 }
 
 
@@ -445,12 +509,25 @@ function startSwing() {
 
 window.addEventListener(
   "resize",
-  updateVisual
+  function() {
+
+    updateVisual(
+      currentX,
+      currentY
+    );
+  }
 );
 
 
 /* =========================
-   INITIAL
+   START
 ========================= */
 
-updateVisual();
+updateVisual(
+  0,
+  0
+);
+
+requestAnimationFrame(
+  idleLoop
+);
