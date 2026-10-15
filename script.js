@@ -61,13 +61,11 @@ holder.addEventListener(
       animationFrame
     );
 
-
     startPointerX =
       event.clientX;
 
     startPointerY =
       event.clientY;
-
 
     startHolderX =
       currentX;
@@ -75,22 +73,18 @@ holder.addEventListener(
     startHolderY =
       currentY;
 
-
     lastPointerX =
       event.clientX;
 
     lastPointerY =
       event.clientY;
 
-
     velocityX = 0;
     velocityY = 0;
-
 
     holder.setPointerCapture(
       event.pointerId
     );
-
 
     holder.style.cursor =
       "grabbing";
@@ -109,7 +103,6 @@ holder.addEventListener(
     if (!dragging) {
       return;
     }
-
 
     event.preventDefault();
 
@@ -259,29 +252,17 @@ function updateStraps() {
     scene.clientWidth;
 
 
-  /*
-    Titik atas kiri
-  */
-
   const leftAnchorX =
-    sceneWidth * 0.21 + 10;
+    sceneWidth * 0.20 + 10;
 
-
-  /*
-    Titik atas kanan
-  */
 
   const rightAnchorX =
-    sceneWidth * 0.79 - 10;
+    sceneWidth * 0.80 - 10;
 
 
   const anchorY =
     23;
 
-
-  /*
-    Pertemuan V
-  */
 
   const targetX =
     sceneWidth / 2 +
@@ -289,7 +270,7 @@ function updateStraps() {
 
 
   const targetY =
-    225 +
+    230 +
     currentY;
 
 
@@ -313,7 +294,7 @@ function updateStraps() {
 
 
 /* =========================
-   POSISI SATU TALI
+   POSISI STRAP
 ========================= */
 
 function positionStrap(
@@ -352,12 +333,18 @@ function positionStrap(
 
 
   /*
-    19 = separuh lebar
-    tali 38px
+    Lebar tali desktop = 56px
+    Separuh = 28px
   */
 
+  const strapHalfWidth =
+    window.innerWidth <= 500
+      ? 23
+      : 28;
+
+
   strap.style.left =
-    `${startX - 19}px`;
+    `${startX - strapHalfWidth}px`;
 
 
   strap.style.top =
@@ -463,7 +450,7 @@ window.addEventListener(
 
 
 /* =========================
-   START
+   INITIAL
 ========================= */
 
 updateVisual();
